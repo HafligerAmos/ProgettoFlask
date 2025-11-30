@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block title %}Insights · Haefliger Investments{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+    <div>
+      <p class="section-title mb-1">Visual intelligence</p>
+      <h1>Review every trajectory with private banking clarity.</h1>
+    </div>
+    <a class="btn btn-outline-light btn-sm" href="{{ url_for('main.portfolio') }}">Return to portfolio</a>
+  </div>
+</section>
+
+<div class="row g-4 mt-2">
+  <div class="col-lg-6">
+    <div class="card-glass p-3 chart-wrapper h-100">
+      <h4>Portfolio value</h4>
+      <img src="{{ url_for('static', filename='charts/' + portfolio_chart) }}" class="img-fluid" alt="Portfolio chart">
+      <button class="btn btn-outline-light btn-sm mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#{{ portfolio_insight.collapse_id }}">
+        Read insight
+      </button>
+      <div class="collapse mt-3" id="{{ portfolio_insight.collapse_id }}">
+        <ul class="text-muted small mb-0">
+          {% for detail in portfolio_insight.details %}
+          <li>{{ detail }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="card-glass p-3 chart-wrapper h-100">
+      <h4>Multi-asset comparison</h4>
+      <img src="{{ url_for('static', filename='charts/' + multi_chart) }}" class="img-fluid" alt="Multi asset chart">
+      <button class="btn btn-outline-light btn-sm mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#{{ multi_insight.collapse_id }}">
+        Read insight
+      </button>
+      <div class="collapse mt-3" id="{{ multi_insight.collapse_id }}">
+        <ul class="text-muted small mb-0">
+          {% for detail in multi_insight.details %}
+          <li>{{ detail }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="mt-5">
+  <p class="section-title mb-1">Drill-down</p>
+  <h2>Single asset performance</h2>
+  <div class="row g-4 mt-1">
+    {% for asset in asset_insights %}
+    <div class="col-md-6">
+      <div class="card-glass p-3 chart-wrapper h-100">
+        <h5>{{ asset.title }}</h5>
+        <img src="{{ url_for('static', filename='charts/' + asset.chart) }}" class="img-fluid" alt="Asset chart">
+        <button class="btn btn-outline-light btn-sm mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#{{ asset.collapse_id }}">
+          Read insight
+        </button>
+        <div class="collapse mt-3" id="{{ asset.collapse_id }}">
+          <ul class="text-muted small mb-0">
+            {% for detail in asset.details %}
+            <li>{{ detail }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

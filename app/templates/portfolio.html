@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% block title %}Portfolio Studio · Haefliger Investments{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+    <div>
+      <p class="section-title mb-1">Portfolio studio</p>
+      <h1>Shape allocations, automate cashflows, deliver a couture experience.</h1>
+    </div>
+    <a class="btn btn-outline-light btn-sm" href="{{ url_for('main.charts') }}">Open insights</a>
+  </div>
+</section>
+
+<div class="metrics-grid mt-4">
+  <div class="metric-card">
+    <p class="text-uppercase text-muted mb-1">Invested capital</p>
+    <h2>€{{ totals.invested | round(2) }}</h2>
+  </div>
+  <div class="metric-card">
+    <p class="text-uppercase text-muted mb-1">Monthly plan</p>
+    <h2>€{{ totals.monthly | round(2) }} <span class="text-muted fs-6">/ month</span></h2>
+  </div>
+  <div class="metric-card">
+    <p class="text-uppercase text-muted mb-1">Annual contribution</p>
+    <h2>€{{ totals.yearly | round(2) }} <span class="text-muted fs-6">/ year</span></h2>
+  </div>
+</div>
+
+<div class="card-glass p-4 mt-4">
+  <h3 class="mb-3">New investment</h3>
+  <form method="post" class="row g-4">
+    <input type="hidden" name="form_type" value="create">
+    <div class="col-md-4">
+      <label class="form-label">Asset</label>
+      <select class="form-select" name="asset_id" required>
+        <option value="">Select</option>
+        {% for asset in assets %}
+        <option value="{{ asset.id }}">{{ asset.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">Initial ticket (€)</label>
+      <input type="number" step="0.01" name="invested_amount" class="form-control" placeholder="5000" required>
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">Monthly plan (€)</label>
+      <input type="number" step="0.01" name="monthly_contribution" class="form-control" placeholder="300">
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">Annual top-up (€)</label>
+      <input type="number" step="0.01" name="yearly_contribution" class="form-control" placeholder="2000">
+    </div>
+    <div class="col-md-4 d-flex align-items-end">
+      <button class="btn btn-gradient w-100">Add to portfolio</button>
+    </div>
+  </form>
+</div>
+
+<section class="mt-5">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+      <p class="section-title mb-1">Active allocations</p>
+      <h2>Manage & elevate each sleeve</h2>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    {% for ua in user_assets %}
+    <div class="col-md-6">
+      <div class="card-glass p-4 h-100">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div>
+            <h4 class="mb-0">{{ ua.asset.name }}</h4>
+            <small class="text-muted">Auto allocation {{ ua.allocation_percent }}%</small>
+          </div>
+          <form method="post" action="{{ url_for('main.delete_investment', user_asset_id=ua.id) }}" onsubmit="return confirm('Remove this investment?');">
+            <button class="btn btn-outline-light btn-sm" type="submit">Remove</button>
+          </form>
+        </div>
+        <form method="post" class="row g-3">
+          <input type="hidden" name="form_type" value="update">
+          <input type="hidden" name="user_asset_id" value="{{ ua.id }}">
+          <div class="col-12">
+            <label class="form-label">Initial ticket (€)</label>
+            <input type="number" step="0.01" name="invested_amount" class="form-control" value="{{ ua.invested_amount }}" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Monthly plan (€)</label>
+            <input type="number" step="0.01" name="monthly_contribution" class="form-control" value="{{ ua.monthly_contribution }}">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Annual top-up (€)</label>
+            <input type="number" step="0.01" name="yearly_contribution" class="form-control" value="{{ ua.yearly_contribution }}">
+          </div>
+          <div class="col-12">
+            <button class="btn btn-gradient w-100">Update investment</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    {% else %}
+    <div class="col-12 text-center text-muted py-5">
+      No assets yet. Start with the form above.
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

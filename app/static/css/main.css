@@ -1,0 +1,127 @@
+:root {
+  --bg: #0f172a;
+  --card-bg: #111827;
+  --accent: #38bdf8;
+  --accent-2: #a855f7;
+  --text: #f8fafc;
+  --muted: #94a3b8;
+}
+
+body {
+  background: radial-gradient(circle at top, rgba(56,189,248,0.25), transparent 60%), var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+a,
+.btn-link {
+  color: var(--accent);
+}
+
+.navbar-glass {
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.hero {
+  padding: 4rem 0 2rem;
+}
+
+.hero h1 {
+  font-weight: 700;
+  font-size: clamp(2.2rem, 3vw, 3.4rem);
+}
+
+.hero p {
+  color: var(--muted);
+  font-size: 1.1rem;
+}
+
+.marketing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
+}
+
+.card-glass {
+  background: var(--card-bg);
+  border-radius: 20px;
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.5);
+  color: var(--text);
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.metric-card {
+  padding: 1.25rem;
+  border-radius: 16px;
+  background: rgba(148, 163, 184, 0.1);
+}
+
+.text-muted {
+  color: #cbd5f5 !important;
+  opacity: 0.9;
+}
+
+.form-control,
+.form-select {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  color: var(--text);
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 0.25rem rgba(56, 189, 248, 0.25);
+}
+
+.btn-gradient {
+  background: linear-gradient(120deg, var(--accent), var(--accent-2));
+  border: none;
+  color: #0f172a;
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 0.75rem 2rem;
+}
+
+.section-title {
+  font-size: 1.2rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.table-dark-modern {
+  --bs-table-bg: rgba(15, 23, 42, 0.6);
+  --bs-table-color: var(--text);
+  --bs-table-striped-bg: rgba(148, 163, 184, 0.08);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.badge-pill {
+  border-radius: 999px;
+  padding: 0.35rem 1rem;
+  background: rgba(56, 189, 248, 0.2);
+  color: var(--accent);
+}
+
+.chart-wrapper img {
+  border-radius: 18px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.6);
+}
+
+footer {
+  color: var(--muted);
+  font-size: 0.9rem;
+  padding: 3rem 0 2rem;
+}

@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+instance/
+.env
+.env.*
+venv/
+.mypy_cache/
+.pytest_cache/
+.DS_Store
+*.sqlite3
+app/static/charts/*.png
+migrations/versions/*.pyc
